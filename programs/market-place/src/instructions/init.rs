@@ -1,6 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token_interface::{Mint, TokenInterface};
 
+use crate::constant::{MARKETPLACE, REWARD, TRESURY};
 use crate::errors::MarketPlaceErrors;
 use crate::state::marketplace::Marketplace;
 
@@ -16,13 +17,13 @@ pub struct InitMarketplace<'info> {
         init,
         payer = admin,
         space =  Marketplace::LEN,
-        seeds = [b"market_place",name.as_bytes()],
+        seeds = [MARKETPLACE,name.as_bytes()],
         bump
     )]
     pub market_place_account: Account<'info, Marketplace>, // Our PDA
 
     #[account(
-        seeds = [b"treasury_place",market_place_account.key().as_ref()],
+        seeds = [TRESURY,market_place_account.key().as_ref()],
         bump
     )]
     pub treasury_account: SystemAccount<'info>, // Admins treasury amount will be collected hear.
@@ -30,7 +31,7 @@ pub struct InitMarketplace<'info> {
     #[account(
         init,
         payer = admin,
-        seeds = [b"reward_account",market_place_account.key().as_ref()],
+        seeds = [REWARD,market_place_account.key().as_ref()],
         bump,
         mint::authority = market_place_account, // This acc is contolled by our program.
         mint::decimals = 6

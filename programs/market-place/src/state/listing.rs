@@ -8,3 +8,7 @@ pub struct ListingAccount {
     pub nft_price: u16,
     pub listing_bump: u8,
 }
+
+impl ListingAccount {
+    pub const LIST_SIZE: usize = 8 + 32 + 32 + 2 + 1;
+}
