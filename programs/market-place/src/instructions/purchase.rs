@@ -123,6 +123,7 @@ impl<'info> PurchaseNFT<'info> {
             LIST_NFT,
             self.market_place.to_account_info().key.as_ref(),
             self.nft_mint.to_account_info().key.as_ref(),
+            &[self.listing_account.listing_bump],
         ];
 
         let signer_seeds = &[&seeds[..]];
